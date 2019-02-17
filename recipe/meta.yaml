@@ -1,7 +1,7 @@
 {% set name = "spyder-kernels" %}
-{% set version = "1.0.1" %}
+{% set version = "1.3.2" %}
 {% set hash_type = "sha256" %}
-{% set hash = "ce4950684a3b82cd995700e2623c8749d1194823f990d6ed24711e7db4cf202a" %}
+{% set hash = "ccd04b6c166150eac40ce91abd350d0ffe4e559b918ddf0cf138deb3917941d2" %}
 
 package:
   name: {{ name|lower }}
@@ -34,7 +34,6 @@ about:
   home: https://github.com/spyder-ide/spyder-kernels
   license: MIT
   license_family: MIT
-  license_file: LICENSE
   summary: 'Jupyter kernels for the Spyder console'
 
   description: |
