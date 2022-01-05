@@ -16,8 +16,6 @@ build:
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv
 
 requirements:
-  build:
-    - python                                 # [build_platform != target_platform]
   host:
     - pip
     - python
