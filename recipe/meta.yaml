@@ -24,8 +24,7 @@ requirements:
   run:
     - python
     - cloudpickle
-    # Should be >=6.9.2,<7.0.0
-    - ipykernel >=6.9.1,<7.0.0
+    - ipykernel >=6.9.2,<7.0.0
     - ipython >=7.31.1,<8.0.0
     - jupyter_client >=7.3.4,<8.0.0
     - pyzmq >=22.1.0
@@ -34,9 +33,10 @@ requirements:
 test:
   imports:
     - spyder_kernels
-  requires:
-    - pip
-  commands:
+  #requires:
+    #- pip
+  #commands:
+    # 2022/9/5: pip check failed because of false positive flake8 cheking dependencies 
     #- pip check
 
 about:
@@ -44,6 +44,7 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE.txt
+  license_url: https://github.com/spyder-ide/spyder-kernels/blob/master/LICENSE.txt
   summary: Jupyter kernels for Spyder's console
 
   description: |
