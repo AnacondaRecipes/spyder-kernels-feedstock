@@ -35,10 +35,8 @@ test:
     - spyder_kernels
   requires:
     - pip
-  commands:
-    # 2022/9/6: pip check failed because of false positive flake8 cheking dependencies 
-    - pip check || true  # [not win]
-    - pip check || 1     # [win]
+  commands: 
+    - pip check
 
 about:
   home: https://www.spyder-ide.org/
