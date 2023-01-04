@@ -20,6 +20,7 @@ requirements:
     - wheel
   run:
     - python
+    - packaging
     - cloudpickle
     - ipykernel >=6.16.1,<7.0.0
     - ipython >=7.31.1,<9.0.0
