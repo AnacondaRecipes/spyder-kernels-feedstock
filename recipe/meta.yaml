@@ -27,6 +27,7 @@ requirements:
     - ipykernel >=6.16.1,<7.0.0
     - ipython >=7.3.4,<9.0.0
     - jupyter_client >=7.1.0
+
     - pyzmq >=22.1.0
     - wurlitzer >=1.0.3  # [not win]
 
@@ -35,7 +36,7 @@ test:
     - spyder_kernels
   requires:
     - pip
-  commands:
+  commands: 
     - pip check
 
 about:
@@ -43,6 +44,7 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE.txt
+  license_url: https://github.com/spyder-ide/spyder-kernels/blob/master/LICENSE.txt
   summary: Jupyter kernels for Spyder's console
 
   description: |
