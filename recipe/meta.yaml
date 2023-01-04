@@ -5,16 +5,13 @@
 package:
   name: {{ name|lower }}
   version: {{ version }}
-
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ hash }}
-
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv
-
 requirements:
   host:
     - pip
@@ -28,7 +25,7 @@ requirements:
     - ipython >=7.31.1,<9.0.0
     - jupyter_client >=7.3.4,<8.0.0
     - pyzmq >=22.1.0
-    - wurlitzer >=1.0.3  # [not win]
+    - wurlitzer >=1.0.3  # [unix]
 
 test:
   imports:
@@ -37,14 +34,13 @@ test:
     - pip
   commands:
     - pip check
-
 about:
   home: https://www.spyder-ide.org/
   license: MIT
   license_family: MIT
   license_file: LICENSE.txt
+  license_url: https://github.com/spyder-ide/spyder-kernels/blob/master/LICENSE.txt
   summary: Jupyter kernels for Spyder's console
-
   description: |
     Provides Jupyter kernels for use with the consoles of Spyder, the
     Scientific Python Development Environment. These can launched either
@@ -52,15 +48,12 @@ about:
     interactive or file-based execution of Python code in different
     environments, all inside the IDE.
     For more on Spyder, visit https://www.spyder-ide.org/
-
     To learn about creating, connecting and using Spyder's consoles, read:
     https://docs.spyder-ide.org/ipythonconsole.html
-
     For advice on managing packages and environments with Spyder, see:
     https://github.com/spyder-ide/spyder/wiki/Working-with-packages-and-environments-in-Spyder
   doc_url: https://docs.spyder-ide.org/
   dev_url: https://github.com/spyder-ide/spyder-kernels
-
 extra:
   recipe-maintainers:
     - ccordoba12
