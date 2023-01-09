@@ -1,20 +1,18 @@
 {% set name = "spyder-kernels" %}
-{% set version = "2.3.3" %}
-{% set hash = "ee5b89a3b4bf9fcf230c9461271d56b85e638667911ebaddc629db05b5ee4717" %}
+{% set version = "2.4.1" %}
+{% set hash = "783d8dfbd715cd97728e913916779b37cf8e96566355ebdacfe3411d2beb4796" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
-
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ hash }}
-
 build:
+  skip: true  # [py<38]
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv
-
 requirements:
   host:
     - pip
@@ -23,9 +21,10 @@ requirements:
     - wheel
   run:
     - python
+    - packaging
     - cloudpickle
-    - ipykernel >=6.9.2,<7.0.0
-    - ipython >=7.31.1,<8.0.0
+    - ipykernel >=6.16.1,<7.0.0
+    - ipython >=7.31.1,<9.0.0
     - jupyter_client >=7.3.4,<8.0.0
     - pyzmq >=22.1.0
     - wurlitzer >=1.0.3  # [not win]
@@ -35,9 +34,8 @@ test:
     - spyder_kernels
   requires:
     - pip
-  commands: 
+  commands:
     - pip check
-
 about:
   home: https://www.spyder-ide.org/
   license: MIT
@@ -45,7 +43,6 @@ about:
   license_file: LICENSE.txt
   license_url: https://github.com/spyder-ide/spyder-kernels/blob/master/LICENSE.txt
   summary: Jupyter kernels for Spyder's console
-
   description: |
     Provides Jupyter kernels for use with the consoles of Spyder, the
     Scientific Python Development Environment. These can launched either
@@ -53,15 +50,12 @@ about:
     interactive or file-based execution of Python code in different
     environments, all inside the IDE.
     For more on Spyder, visit https://www.spyder-ide.org/
-
     To learn about creating, connecting and using Spyder's consoles, read:
     https://docs.spyder-ide.org/ipythonconsole.html
-
     For advice on managing packages and environments with Spyder, see:
     https://github.com/spyder-ide/spyder/wiki/Working-with-packages-and-environments-in-Spyder
   doc_url: https://docs.spyder-ide.org/
   dev_url: https://github.com/spyder-ide/spyder-kernels
-
 extra:
   recipe-maintainers:
     - ccordoba12
