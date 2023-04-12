@@ -1,6 +1,6 @@
 {% set name = "spyder-kernels" %}
-{% set version = "2.4.2" %}
-{% set hash = "97586eabda1f714c26035b5b01ed7c2e3f539b0de76bd479af5003f5f19b3eb7" %}
+{% set version = "2.4.3" %}
+{% set hash = "d1a364ab89da716d91671ba9d89ef8f1966068bba0e470797a489653829caaf3" %}
 
 package:
   name: {{ name|lower }}
@@ -24,7 +24,7 @@ requirements:
     - cloudpickle
     - ipykernel >=6.16.1,<7.0.0
     - ipython >=7.31.1,<9.0.0
-    - jupyter_client >=7.4.9,<8.0.0
+    - jupyter_client >=7.4.9,<9.0.0
     - pyzmq >=22.1.0
     - wurlitzer >=1.0.3  # [not win]
 
