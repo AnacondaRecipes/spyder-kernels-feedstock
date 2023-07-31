@@ -40,7 +40,6 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE.txt
-  license_url: https://github.com/spyder-ide/spyder-kernels/blob/master/LICENSE.txt
   summary: Jupyter kernels for Spyder's console
   description: |
     Provides Jupyter kernels for use with the consoles of Spyder, the
