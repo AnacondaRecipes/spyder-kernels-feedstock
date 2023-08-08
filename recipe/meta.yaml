@@ -12,7 +12,8 @@ source:
 build:
   skip: true  # [py<38]
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vvv
+  
 requirements:
   host:
     - pip
@@ -26,7 +27,7 @@ requirements:
     - ipython >=7.31.1,<9.0.0,!=8.8.0,!=8.9.0,!=8.10.0,!=8.11.0,!=8.12.0,!=8.12.1
     - jupyter_client >=7.4.9,<9.0.0
     - pyzmq >=22.1.0
-    - wurlitzer >=1.0.3  # [not win]
+    - wurlitzer >=1.0.3  # [unix]
 
 test:
   imports:
