@@ -1,14 +1,15 @@
 {% set name = "spyder-kernels" %}
 {% set version = "2.4.4" %}
-{% set hash = "363bb0a0e1594cb691637464192f4f19969095469252242b43c092bf305a25dd" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
+
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ hash }}
+  sha256: 363bb0a0e1594cb691637464192f4f19969095469252242b43c092bf305a25dd
+
 build:
   skip: true  # [py<38]
   number: 0
