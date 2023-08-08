@@ -37,6 +37,7 @@ test:
     - pip
   commands:
     - pip check
+
 about:
   home: https://www.spyder-ide.org/
   license: MIT
@@ -56,6 +57,7 @@ about:
     https://github.com/spyder-ide/spyder/wiki/Working-with-packages-and-environments-in-Spyder
   doc_url: https://docs.spyder-ide.org/
   dev_url: https://github.com/spyder-ide/spyder-kernels
+
 extra:
   recipe-maintainers:
     - ccordoba12
