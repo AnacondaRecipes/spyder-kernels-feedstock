@@ -1,14 +1,15 @@
 {% set name = "spyder-kernels" %}
-{% set version = "2.4.4" %}
-{% set hash = "363bb0a0e1594cb691637464192f4f19969095469252242b43c092bf305a25dd" %}
+{% set version = "2.5.0" %}
+{% set hash = "3368426c04457e0211884e9274fa47eb556252ba4c073df275e83c65df7ba2a1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
+
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ hash }}
+  
 build:
   skip: true  # [py<38]
   number: 0
@@ -23,8 +24,9 @@ requirements:
   run:
     - python
     - cloudpickle
-    - ipykernel >=6.23.2,<7.0.0
-    - ipython >=7.31.1,<9,!=8.8.0,!=8.9.0,!=8.10.0,!=8.11.0,!=8.12.0,!=8.12.1
+    - ipykernel >=6.23.2,<7
+    - ipython >=8.12.2,<8.13 # [py==38]
+    - ipython >=8.13.0,<9,!=8.17.1 # [py>38]
     - jupyter_client >=7.4.9,<9.0.0
     - pyzmq >=22.1.0
     - wurlitzer >=1.0.3  # [not win]
