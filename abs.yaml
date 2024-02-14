@@ -1,2 +1,1 @@
-#channels:
-#    c3i_test2: spyder_dev
+aggregate_branch: 3.12
