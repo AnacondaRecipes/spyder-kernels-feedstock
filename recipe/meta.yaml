@@ -1,13 +1,13 @@
 {% set name = "spyder-kernels" %}
-{% set version = "2.5.0" %}
-{% set hash = "3368426c04457e0211884e9274fa47eb556252ba4c073df275e83c65df7ba2a1" %}
+{% set version = "3.0.0" %}
+{% set hash = "3d316ea04802ed1feb366405cca03df2349dc9e35ad8653538d2fe48c0e9417f" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://files.pythonhosted.org/packages/source/{{ name[0] }}/{{ name }}/{{ name | replace("-", "_") }}-{{ version }}.tar.gz
   sha256: {{ hash }}
   
 build:
@@ -24,20 +24,39 @@ requirements:
   run:
     - python
     - cloudpickle
-    - ipykernel >=6.23.2,<7
+    - ipykernel >=6.29.3,<7
     - ipython >=8.12.2,<8.13 # [py==38]
     - ipython >=8.13.0,<9,!=8.17.1 # [py>38]
     - jupyter_client >=7.4.9,<9.0.0
-    - pyzmq >=22.1.0
+    - pyzmq >=24.0.0
     - wurlitzer >=1.0.3  # [not win]
+    - pyxdg >=0.26  # [linux]
 
 test:
+  source_files:
+    - spyder_kernels
   imports:
     - spyder_kernels
+    - spyder_kernels.comms
+    - spyder_kernels.console
+    - spyder_kernels.customize
+    - spyder_kernels.utils
   requires:
     - pip
+    - pytest
+    - flaky
+    - mock
+    - numpy
+    - pandas
+    - scipy
+    - xarray
+    - pillow
+    - django
+    - h5py
   commands:
     - pip check
+    - pytest -v spyder_kernels -k "not (test_matplotlib_inline or test_load_dicom_files or test_interrupt or test_global_message or test_enter_debug_after_interruption)"  # [win]
+    - pytest -v spyder_kernels -k "not (test_matplotlib_inline or test_load_dicom_files)"  # [not (win or osx)]
 
 about:
   home: https://www.spyder-ide.org/
@@ -56,7 +75,7 @@ about:
     https://docs.spyder-ide.org/ipythonconsole.html
     For advice on managing packages and environments with Spyder, see:
     https://github.com/spyder-ide/spyder/wiki/Working-with-packages-and-environments-in-Spyder
-  doc_url: https://docs.spyder-ide.org/
+  doc_url: https://docs.spyder-ide.org/current/index.html
   dev_url: https://github.com/spyder-ide/spyder-kernels
 
 extra:
