@@ -1,14 +1,13 @@
 {% set name = "spyder-kernels" %}
 {% set version = "3.0.2" %}
-{% set hash = "a5300a0cc18d9201c006827c170b0ec08cfc943f775f083abfb6bdf672feb561" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://files.pythonhosted.org/packages/source/{{ name[0] }}/{{ name }}/{{ name | replace("-", "_") }}-{{ version }}.tar.gz
-  sha256: {{ hash }}
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
+  sha256: a5300a0cc18d9201c006827c170b0ec08cfc943f775f083abfb6bdf672feb561
 
 build:
   skip: true  # [py<38]
@@ -43,11 +42,15 @@ test:
     - spyder_kernels.utils
   requires:
     - pip
-    - pytest
+    - cython
+    - dask
     - flaky
+    - matplotlib
     - mock
     - numpy
     - pandas
+    - pytest
+    - pytest-cov
     - scipy
     - xarray
     - pillow
@@ -55,8 +58,8 @@ test:
     - h5py
   commands:
     - pip check
-    - pytest -v spyder_kernels -k "not (test_matplotlib_inline or test_load_dicom_files or test_interrupt or test_global_message or test_enter_debug_after_interruption)"  # [win]
-    - pytest -v spyder_kernels -k "not (test_matplotlib_inline or test_load_dicom_files)"  # [not (win or osx)]
+    - pytest -vv spyder_kernels -k "not (test_matplotlib_inline or test_load_dicom_files or test_interrupt or test_global_message or test_enter_debug_after_interruption)" # [win]
+    - pytest -vv spyder_kernels -k "not (test_matplotlib_inline or test_load_dicom_files)"  # [not osx]
 
 about:
   home: https://www.spyder-ide.org/
