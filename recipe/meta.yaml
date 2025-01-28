@@ -6,8 +6,12 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: a5300a0cc18d9201c006827c170b0ec08cfc943f775f083abfb6bdf672feb561
+  - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
+    sha256: a5300a0cc18d9201c006827c170b0ec08cfc943f775f083abfb6bdf672feb561
+  - git_url: https://github.com/spyder-ide/spyder-kernels
+    git_rev: v3.0.2
+    git_depth: 1
+    folder: gh
 
 build:
   skip: true  # [py<38]
@@ -33,7 +37,7 @@ requirements:
 
 test:
   source_files:
-    - spyder_kernels
+    - gh/spyder_kernels
   imports:
     - spyder_kernels
     - spyder_kernels.comms
@@ -58,8 +62,9 @@ test:
     - h5py
   commands:
     - pip check
-    - pytest -vv spyder_kernels -k "not (test_matplotlib_inline or test_load_dicom_files or test_interrupt or test_global_message or test_enter_debug_after_interruption)" # [win]
-    - pytest -vv spyder_kernels -k "not (test_matplotlib_inline or test_load_dicom_files)"  # [not osx]
+    # - pytest -vv spyder_kernels -k "not (test_matplotlib_inline or test_load_dicom_files or test_interrupt or test_global_message or test_enter_debug_after_interruption)" # [win]
+    # - pytest -vv spyder_kernels -k "not (test_matplotlib_inline or test_load_dicom_files)"  # [not (win or osx)]
+    - pytest -vv gh/spyder_kernels -k "not test_load_dicom_files"
 
 about:
   home: https://www.spyder-ide.org/
