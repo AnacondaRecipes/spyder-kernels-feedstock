@@ -20,7 +20,8 @@ build:
 
 requirements:
   build:
-    - git   # [not win]
+  # Required to handle git source. See issue [#4882](https://github.com/conda/conda-build/issues/4882)
+    - git-lfs
   host:
     - pip
     - python
