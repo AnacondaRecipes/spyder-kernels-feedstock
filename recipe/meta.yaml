@@ -10,7 +10,6 @@ source:
     sha256: a5300a0cc18d9201c006827c170b0ec08cfc943f775f083abfb6bdf672feb561
   - git_url: https://github.com/spyder-ide/spyder-kernels
     git_rev: v3.0.2
-    git_depth: 1
     folder: gh
 
 build:
@@ -21,7 +20,7 @@ build:
 requirements:
   build:
   # Required to handle git source. See issue [#4882](https://github.com/conda/conda-build/issues/4882)
-    - git-lfs
+    - git  # [not win]
   host:
     - pip
     - python
