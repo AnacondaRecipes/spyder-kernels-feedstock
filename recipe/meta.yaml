@@ -48,10 +48,7 @@ test:
     - spyder_kernels.utils
   requires:
     - pip
-    - cython
-    - dask
     - flaky
-    - matplotlib
     - mock
     - numpy
     - pandas
