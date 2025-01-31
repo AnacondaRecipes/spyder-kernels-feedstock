@@ -26,6 +26,7 @@ requirements:
     - python
     - setuptools
     - wheel
+    - blas =*=openblas  # [osx]
   run:
     - python
     - cloudpickle
@@ -59,7 +60,7 @@ test:
     - pillow
     - django
     - h5py
-    - blas =*=openblas  # [osx and x86_64]
+    - blas =*=openblas  # [osx]
   commands:
     - pip check
     # - pytest -vv spyder_kernels -k "not (test_matplotlib_inline or test_load_dicom_files or test_interrupt or test_global_message or test_enter_debug_after_interruption)" # [win]
