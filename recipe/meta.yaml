@@ -60,7 +60,8 @@ test:
     # - blas =*=openblas  # [osx]
   commands:
     - pip check
-    - pytest -vv spyder_kernels -k "not (test_load_dicom_files or test_console_kernel)"
+    # Verified test_console_kernel.py works locally but requires interactive settings so skipping on CI
+    - pytest -vv spyder_kernels -k "not test_load_dicom_files" --ignore=test_console_kernel.py
 
 about:
   home: https://www.spyder-ide.org/
