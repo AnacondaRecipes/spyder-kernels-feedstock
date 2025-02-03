@@ -15,15 +15,11 @@ build:
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -v
 
 requirements:
-  build:
-  # Required to handle git source. See issue [#4882](https://github.com/conda/conda-build/issues/4882)
-    - git  # [not win]
   host:
     - pip
     - python
     - setuptools
     - wheel
-    # - blas =*=openblas  # [osx]
   run:
     - python
     - cloudpickle
@@ -57,7 +53,6 @@ test:
     - pillow
     - django
     - h5py
-    # - blas =*=openblas  # [osx]
   commands:
     - pip check
     # Verified test_console_kernel.py works locally but requires interactive settings so skipping on CI
