@@ -23,7 +23,7 @@ requirements:
     - python
     - setuptools
     - wheel
-    - blas =*=openblas  # [osx]
+    # - blas =*=openblas  # [osx]
   run:
     - python
     - cloudpickle
@@ -37,7 +37,7 @@ requirements:
 
 test:
   source_files:
-    - gh/spyder_kernels
+    - spyder_kernels
   imports:
     - spyder_kernels
     - spyder_kernels.comms
@@ -57,12 +57,10 @@ test:
     - pillow
     - django
     - h5py
-    - blas =*=openblas  # [osx]
+    # - blas =*=openblas  # [osx]
   commands:
     - pip check
-    - export OPENBLAS_NUM_THREADS=1 # [osx]
-    - export OMP_NUM_THREADS=1 # [osx]
-    - pytest -vv gh/spyder_kernels -k "not (test_load_dicom_files or test_console_kernel.py)"
+    - pytest -vv spyder_kernels -k "not (test_load_dicom_files or test_console_kernel)"
 
 about:
   home: https://www.spyder-ide.org/
