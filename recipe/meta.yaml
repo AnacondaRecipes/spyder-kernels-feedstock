@@ -56,6 +56,7 @@ test:
   commands:
     - pip check
     # Verified test_console_kernel.py works locally but requires interactive settings so skipping on CI
+    # Update 3.0.3: test_console_kernel.py tested locally
     # Skipping test_matplotlib_inline because it is a flaky test
     - pytest -vv spyder_kernels --ignore=spyder_kernels/console/tests/test_console_kernel.py -k "not (test_load_dicom_files or test_matplotlib_inline)"
 
