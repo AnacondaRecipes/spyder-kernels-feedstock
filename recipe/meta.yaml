@@ -1,18 +1,18 @@
 {% set name = "spyder-kernels" %}
-{% set version = "3.0.2" %}
+{% set version = "3.0.3" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/spyder-ide/spyder-kernels/archive/refs/tags/v3.0.2.tar.gz
-  sha256: 4620b8724fc83c7c99f5cb923f0b58fbb2f08d52bdf9dce3d6bdd84be4e8540b
+  url: https://github.com/spyder-ide/spyder-kernels/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 12fb50a7d4dd9b17831cbae06f8419701aa7b825b990b0155c06717cbd78e4b0
 
 build:
   skip: true  # [py<38]
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -v
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vv
 
 requirements:
   host:
@@ -56,6 +56,7 @@ test:
   commands:
     - pip check
     # Verified test_console_kernel.py works locally but requires interactive settings so skipping on CI
+    # Update 3.0.3: test_console_kernel.py tested locally
     # Skipping test_matplotlib_inline because it is a flaky test
     - pytest -vv spyder_kernels --ignore=spyder_kernels/console/tests/test_console_kernel.py -k "not (test_load_dicom_files or test_matplotlib_inline)"
 
