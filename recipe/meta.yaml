@@ -1,18 +1,18 @@
 {% set name = "spyder-kernels" %}
-{% set version = "3.0.5" %}
+{% set version = "3.1.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/spyder-ide/spyder-kernels/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: cfe9483893f03a751a9233d7477ed69596d9c7b0b16fc78502c87f7ca3ec712c
+  url: https://github.com/{{ name.split('-')[0] }}-ide/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 86229476046bed00c4a3e914c257b28b47f926358616c09d883cfa5a095c7210
 
 build:
-  skip: true  # [py<38]
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vv
+  skip: true  # [py<39]
 
 requirements:
   host:
@@ -24,23 +24,50 @@ requirements:
     - python
     - cloudpickle
     - ipykernel >=6.29.3,<7
-    - ipython >=8.12.2,<8.13  # [py==38]
-    - ipython >=8.13.0,<9,!=8.17.1  # [py>38]
+    - ipython >=8.15.0,<10,!=8.17.1,!=9.1.0,!=9.2.0,!=9.3.0,!=9.4.0
     - jupyter_client >=7.4.9,<9.0.0
-    - pyzmq >=24.0.0
-    - wurlitzer >=1.0.3  # [not win]
+    - packaging
     - pyxdg >=0.26  # [linux]
+    - pyzmq >=24.0.0
     - traitlets >=5.14.3
+    - wurlitzer >=1.0.3  # [not win]
+
+# Verified test_console_kernel.py works locally but requires interactive settings so skipping on CI
+# Update 3.1.0: test_console_kernel.py tested locally
+{% set ignore_tests = " --ignore=spyder_kernels/console/tests/test_console_kernel.py" %}
+# ModuleNotFoundError: No module named 'polars'
+{% set deselect_tests = " --deselect=spyder_kernels/console/tests/test_console_kernel.py::test_get_value_with_polars" %}
+{% set deselect_tests = deselect_tests + " --deselect=spyder_kernels/utils/tests/test_nsview.py::test_polars_dataframe" %}
+# >   assert data[0]['data'].shape == (512, 512)
+# E   TypeError: 'NoneType' object is not subscriptable
+{% set deselect_tests = deselect_tests + " --deselect=spyder_kernels/utils/tests/test_iofuncs.py::test_load_dicom_files" %}
 
 test:
   source_files:
     - spyder_kernels
   imports:
     - spyder_kernels
-    - spyder_kernels.comms
-    - spyder_kernels.console
-    - spyder_kernels.customize
-    - spyder_kernels.utils
+    - spyder_kernels.comms.commbase
+    - spyder_kernels.comms.decorators
+    - spyder_kernels.comms.frontendcomm
+    - spyder_kernels.comms.utils
+    - spyder_kernels.console.kernel
+    - spyder_kernels.console.kernelapp
+    - spyder_kernels.console.shell
+    - spyder_kernels.customize.code_runner
+    - spyder_kernels.customize.namespace_manager
+    - spyder_kernels.customize.spyderpdb
+    - spyder_kernels.customize.umr
+    - spyder_kernels.customize.utils
+    - spyder_kernels.utils.dochelpers
+    - spyder_kernels.utils.iofuncs
+    - spyder_kernels.utils.lazymodules
+    - spyder_kernels.utils.misc
+    - spyder_kernels.utils.mpl
+    - spyder_kernels.utils.nsview
+    - spyder_kernels.utils.pythonenv
+    - spyder_kernels.utils.style
+    - spyder_kernels.utils.test_utils
   requires:
     - pip
     - flaky
@@ -49,6 +76,7 @@ test:
     - pandas
     - pytest
     - pytest-cov
+    - pytest-asyncio
     - scipy
     - xarray
     - pillow
@@ -56,12 +84,10 @@ test:
     - h5py
   commands:
     - pip check
-    # Verified test_console_kernel.py works locally but requires interactive settings so skipping on CI
-    # Update 3.0.3: test_console_kernel.py tested locally
-    - "pytest -vv spyder_kernels --ignore=spyder_kernels/console/tests/test_console_kernel.py -k \"not (test_load_dicom_files)\""
+    - python -m pytest -vv spyder_kernels {{ ignore_tests }} {{ deselect_tests }}
 
 about:
-  home: https://www.spyder-ide.org/
+  home: https://www.spyder-ide.org
   license: MIT
   license_family: MIT
   license_file: LICENSE.txt
