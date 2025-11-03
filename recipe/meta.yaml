@@ -1,5 +1,5 @@
 {% set name = "spyder-kernels" %}
-{% set version = "3.1.0" %}
+{% set version = "3.1.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/{{ name.split('-')[0] }}-ide/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 86229476046bed00c4a3e914c257b28b47f926358616c09d883cfa5a095c7210
+  sha256: b706003e39be5f93ebc2c37e4a29cc6500c341607db92151bab3f0172bc45638
 
 build:
   number: 0
@@ -35,12 +35,9 @@ requirements:
 # Verified test_console_kernel.py works locally but requires interactive settings so skipping on CI
 # Update 3.1.0: test_console_kernel.py tested locally
 {% set ignore_tests = " --ignore=spyder_kernels/console/tests/test_console_kernel.py" %}
-# ModuleNotFoundError: No module named 'polars'
-{% set deselect_tests = " --deselect=spyder_kernels/console/tests/test_console_kernel.py::test_get_value_with_polars" %}
-{% set deselect_tests = deselect_tests + " --deselect=spyder_kernels/utils/tests/test_nsview.py::test_polars_dataframe" %}
 # >   assert data[0]['data'].shape == (512, 512)
 # E   TypeError: 'NoneType' object is not subscriptable
-{% set deselect_tests = deselect_tests + " --deselect=spyder_kernels/utils/tests/test_iofuncs.py::test_load_dicom_files" %}
+{% set deselect_tests = "--deselect=spyder_kernels/utils/tests/test_iofuncs.py::test_load_dicom_files" %}
 
 test:
   source_files:
@@ -73,6 +70,7 @@ test:
     - flaky
     - mock
     - numpy
+    - polars
     - pandas
     - pytest
     - pytest-cov
@@ -98,7 +96,7 @@ about:
     through Spyder itself or in an independent Python session, and allow for
     interactive or file-based execution of Python code in different
     environments, all inside the IDE.
-    For more on Spyder, visit https://www.spyder-ide.org/
+    For more on Spyder, visit https://www.spyder-ide.org
     To learn about creating, connecting and using Spyder's consoles, read:
     https://docs.spyder-ide.org/ipythonconsole.html
     For advice on managing packages and environments with Spyder, see:
