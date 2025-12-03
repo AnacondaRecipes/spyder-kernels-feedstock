@@ -1,5 +1,5 @@
 {% set name = "spyder-kernels" %}
-{% set version = "3.1.1" %}
+{% set version = "3.1.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/{{ name.split('-')[0] }}-ide/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: b706003e39be5f93ebc2c37e4a29cc6500c341607db92151bab3f0172bc45638
+  sha256: 7c00ee218ceb534f05e6a9640919f0283db88f0f3788c5f487b741fcb2d293cc
 
 build:
   number: 0
