@@ -1,13 +1,19 @@
 {% set name = "spyder-kernels" %}
-{% set version = "3.1.5" %}
+{% set version = "3.1.6" %}
+{% set ignore_tests = " --ignore=spyder_kernels/console/tests/test_console_kernel.py" %}
+{% set deselect_tests = "--deselect=spyder_kernels/utils/tests/test_iofuncs.py::test_load_dicom_files" %}
 
+# Verified test_console_kernel.py works locally but requires interactive settings so skipping on CI
+# Update 3.1.0: test_console_kernel.py tested locally
+# >   assert data[0]['data'].shape == (512, 512)
+# E   TypeError: 'NoneType' object is not subscriptable
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
   url: https://github.com/{{ name.split('-')[0] }}-ide/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 97ade365b2b2cc5684f8bb8ecfccd809801edad23f01eb31ef28e3d1dc9fc17c
+  sha256: f3719046a8064b8c8761bf5fd07af1c34d4718f555bc5fb337314aa6f57be267
 
 build:
   number: 0
@@ -30,13 +36,6 @@ requirements:
     - pyzmq >=24.0.0
     - traitlets >=5.14.3
     - wurlitzer >=1.0.3  # [not win]
-
-# Verified test_console_kernel.py works locally but requires interactive settings so skipping on CI
-# Update 3.1.0: test_console_kernel.py tested locally
-{% set ignore_tests = " --ignore=spyder_kernels/console/tests/test_console_kernel.py" %}
-# >   assert data[0]['data'].shape == (512, 512)
-# E   TypeError: 'NoneType' object is not subscriptable
-{% set deselect_tests = "--deselect=spyder_kernels/utils/tests/test_iofuncs.py::test_load_dicom_files" %}
 
 test:
   source_files:
@@ -88,7 +87,7 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE.txt
-  summary: "Jupyter kernels for Spyder's console"
+  summary: Jupyter kernels for Spyder's console
   description: |
     Provides Jupyter kernels for use with the consoles of Spyder, the
     Scientific Python Development Environment. These can launched either
