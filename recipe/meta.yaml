@@ -10,7 +10,7 @@ source:
   sha256: 634768a3e36e65e9415ef0c85e629c4e215835fe2f46fbb899572a6580478ff1
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vv
   skip: true  # [py<39]
 
@@ -22,7 +22,8 @@ requirements:
   run:
     - python
     - cloudpickle
-    - ipykernel >=6.29.3,<7
+    - ipykernel >=6.29.3,<7  # [not (win and arm64)]
+    - ipykernel >=6.29.3  # [win and arm64]
     - ipython >=8.15.0,<10,!=8.17.1,!=9.1.0,!=9.2.0,!=9.3.0,!=9.4.0
     - jupyter_client >=7.4.9,<9
     - packaging
